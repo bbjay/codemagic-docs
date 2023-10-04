@@ -1,7 +1,7 @@
 ---
 ---
 
-### Automatic vs Manual code signing
+## Automatic vs Manual code signing
 
 {{<notebox>}}
 Signing macOS applications requires [Apple Developer Program](https://developer.apple.com/programs/enroll/) membership. 
@@ -11,7 +11,7 @@ Signing macOS apps requires a `Signing certificate` (App Store **development** o
 
 In **Automatic code signing**, Codemagic takes care of Certificate and Provisioning profile management for you. Based on the `certificate private key` that you provide, Codemagic will automatically fetch the correct certificate from the App Store or create a new one if necessary.
 
-### Certificate types
+## Certificate types
 There are several certificate types you can choose to sign your macOS app, depending on the distribution method you plan to use.
 
 - `MAC_APP_DEVELOPMENT` certificate allows you to build your app for internal testing and debugging.
@@ -63,15 +63,15 @@ openssl pkcs12 -in MAC_DISTRIBUTION.p12 -nodes -nocerts | openssl rsa -out mac_d
 
 {{< /tabpane >}}
 
-### Automatic code signing
+## Automatic code signing
 
 When automatic code signing is used, then most up-to-date signing files are obtained directly from Apple during the build time. This requires that Codemagic has access to your Apple Developer portal account, which is achieved by using App Store Connect API key.
 
-#### Creating the App Store Connect API key
+### Creating the App Store Connect API key
 
 {{< include "/partials/app-store-connect-api-key.md" >}}
 
-#### Configuring environment variables
+### Configuring environment variables
 
 Provisioning profiles and code signing certificates are obtained from Apple Developer portal with the command [`app-store-connect fetch-signing-files`](https://github.com/codemagic-ci-cd/cli-tools/blob/master/docs/app-store-connect/fetch-signing-files.md#fetch-signing-files). App Store Connect API key information can be passed to it via environment variables [`APP_STORE_CONNECT_KEY_IDENTIFIER`](https://github.com/codemagic-ci-cd/cli-tools/blob/master/docs/app-store-connect/fetch-signing-files.md#--key-idkey_identifier), [`APP_STORE_CONNECT_ISSUER_ID`](https://github.com/codemagic-ci-cd/cli-tools/blob/master/docs/app-store-connect/fetch-signing-files.md#--issuer-idissuer_id), [`APP_STORE_CONNECT_PRIVATE_KEY`](https://github.com/codemagic-ci-cd/cli-tools/blob/master/docs/app-store-connect/fetch-signing-files.md#--private-keyprivate_key).
 
@@ -178,7 +178,7 @@ Instead of specifying the exact bundle ID, you can use `"$(xcode-project detect-
 
 Based on the specified bundle ID and [provisioning profile type](https://github.com/codemagic-ci-cd/cli-tools/blob/master/docs/app-store-connect/fetch-signing-files.md#--typeios_app_adhoc--ios_app_development--ios_app_inhouse--ios_app_store--mac_app_development--mac_app_direct--mac_app_store--mac_catalyst_app_development--mac_catalyst_app_direct--mac_catalyst_app_store--tvos_app_adhoc--tvos_app_development--tvos_app_inhouse--tvos_app_store), Codemagic will fetch or create the relevant provisioning profile and certificate to code sign the build.
 
-### Manual code signing
+## Manual code signing
 
 In order to use manual code signing, you need the following: 
 - **Signing certificate**: Your development or distribution certificate in .P12 format.
@@ -238,7 +238,7 @@ Then, add the code signing configuration and the commands to code sign the build
         script: xcode-project use-profiles
 {{< /highlight >}}
 
-### Creating the Installer package
+## Creating the Installer package
 
 To package your application into an `.pkg` Installer package and sign it with the `Mac Installer Distribution` certificate, use the following script:
 
@@ -272,7 +272,7 @@ To package your application into an `.pkg` Installer package and sign it with th
 **Note**: Don't forget to specify the path to your generated package in the [artifacts section](../getting-started/yaml/#artifacts).
 {{</notebox>}}
 
-### Notarizing macOS applications
+## Notarizing macOS applications
 
 Notarization is a process where Apple verifies your application to make sure it has a Developer ID code signature and does not contain malicious content. All apps distributed outside the Mac App Store have to be notarized.
 
